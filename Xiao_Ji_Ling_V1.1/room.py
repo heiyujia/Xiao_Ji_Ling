@@ -1,4 +1,4 @@
-class room:
+class room(object):
     def __init__ (self, name, length, width, hight, level, sort):
         self.name = name
         self.length = length
