@@ -341,6 +341,8 @@ class GUI_XiaoJiLing (object):
         self.building.rooms_number = self.rooms_number
         self.building.flats_number = self.flats_number
         self.building.floors_number = self.floors_number
+        self.building.building_cable_length  = 0
+        self.building.building_area = 0
         for item in self.floors_list:
             self.building.building_cable_length = self.building.building_cable_length + item.floor_cable_length
             self.building.building_area = self.building.building_area + item.floor_area
