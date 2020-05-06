@@ -1,19 +1,12 @@
-
-import tkinter as tk
-#创建listbox    
-#
-root = tk.Tk()    
-user_listbox=tk.Listbox(root,font=('',14))
-value = ['1','2','as','12','123','asd','1','2','as','12','123','asd','1','2','as','12','123','asd','1','2','as','12','123','asd']
-for item in value:
-    user_listbox.insert(tk.END, item)        
- 
-user_listbox.place(x=5,y=10,relwidth=0.9,relheight=0.9)
- 
-#创建Scrollbar
-yscrollbar = tk.Scrollbar(user_listbox,command=user_listbox.yview)
-yscrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-user_listbox.config(yscrollcommand=yscrollbar.set)
-
-root.mainloop()
+from tkinter import *
+root = Tk()
+text1 = Text(root,width=30,height=2)
+text1.pack()
+text1.insert(INSERT,'I love you')
+def show():
+     print('吆喝，我被点了一下')
+#text还可以插入按钮  图片等
+b1 = Button(text1,text='点我点我',command=show)
+#在text创建组件的命令
+text1.window_create(INSERT,window=b1)
+mainloop()

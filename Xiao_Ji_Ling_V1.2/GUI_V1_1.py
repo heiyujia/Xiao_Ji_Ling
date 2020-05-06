@@ -1,23 +1,22 @@
-#GUI V1.1 all selection are only on one page
-#location: desktop/Xiao_Ji_Ling_V1.1
-
 import tkinter
 import tkinter.ttk
 import tkinter.font
+import tkinter.messagebox
 from room import room
 from floor import *
 import os
 from flat import *
 from Building import *
+from Save_option import *
 
 
 class GUI_XiaoJiLing (object):
 
-    def __init__(self):
-        self.building = building(name = 'Building V1.1')
+    def __init__(self, building):
+        self.building = building
         self.rooms_number = 0
         self.rooms_list = []
-        self.root = tkinter.Tk()
+        self.root = tkinter.Toplevel()
         self.sysfont = tkinter.font.Font(self.root, size = 30)
         self.root.title('Xiao Ji Ling V1.1 by Linjie')
         self.root.geometry('1200x600')
@@ -159,8 +158,8 @@ class GUI_XiaoJiLing (object):
         #part4 : middle for Building and Building description
         self.building_lable = tkinter.Label(master=self.main_Frm_middle, text = self.building.building_name)
         self.building_lable.pack(side = 'left')
-        self.building_lable2 = tkinter.Label(master=self.main_Frm_middle, text = self.building.building_description)
-        self.building_lable2.pack(side = 'left')
+        #self.building_lable2 = tkinter.Label(master=self.main_Frm_middle, text = self.building.building_description)
+        #self.building_lable2.pack(side = 'left')
         
         #part5: Botton for Building info
         self.Info1 = tkinter.StringVar()
@@ -168,25 +167,32 @@ class GUI_XiaoJiLing (object):
         self.Info3 = tkinter.StringVar()
         self.Info4 = tkinter.StringVar()
         self.Info5 = tkinter.StringVar()
+        self.Info6 = tkinter.StringVar()
 
         self.Info1.set('Rooms number: 0')
         self.Info2.set('Flats number: 0')
         self.Info3.set('Floors number: 0')
         self.Info4.set('Total Cable: 0')
         self.Info5.set('Total area: 0')
+        self.Info6.set("Description:\n%s"%(self.building.building_description))
 
         self.building_info_label1 = tkinter.Label(master=self.sub_frm_botten_1, textvariable = self.Info1)
         self.building_info_label1.pack()
-        self.building_info_label2 = tkinter.Label(master=self.sub_frm_botten_2, textvariable = self.Info2)
+        self.building_info_label2 = tkinter.Label(master=self.sub_frm_botten_1, textvariable = self.Info2)
         self.building_info_label2.pack()
-        self.building_info_label3 = tkinter.Label(master=self.sub_frm_botten_3, textvariable = self.Info3)
+        self.building_info_label3 = tkinter.Label(master=self.sub_frm_botten_1, textvariable = self.Info3)
         self.building_info_label3.pack()
-        self.building_info_label4 = tkinter.Label(master=self.sub_frm_botten_4, textvariable = self.Info4)
+        self.building_info_label4 = tkinter.Label(master=self.sub_frm_botten_2, textvariable = self.Info4)
         self.building_info_label4.pack()
-        self.building_info_label5 = tkinter.Label(master=self.sub_frm_botten_4, textvariable = self.Info5)
+        self.building_info_label5 = tkinter.Label(master=self.sub_frm_botten_2, textvariable = self.Info5)
         self.building_info_label5.pack()
+        self.building_info_label6 = tkinter.Label(master=self.sub_frm_botten_3, textvariable = self.Info6, width = 10, height = 20)
+        self.building_info_label6.pack(side = 'top')
+
+        self.finish_Button = tkinter.Button(master=self.sub_frm_botten_4, text = 'End the Planning', command = self.Save_option)
+        self.finish_Button.pack()
         
-        self.root.mainloop()
+        #self.root.mainloop()
 
     # function definition
     # Part1: left top for Room--------------------------------------------------------------------------
@@ -352,6 +358,23 @@ class GUI_XiaoJiLing (object):
         self.Info3.set('Floors number: '+str(self.building.floors_number))
         self.Info4.set('Total Cable: '+str(self.building.building_cable_length))
         self.Info5.set('Total area: '+str(self.building.building_area))
+
+    def Save_option(self):
+        sv = tkinter.messagebox.askquestion(title='Quit the Plannung', message = 'Do you want to save the planning?')
+        if sv == 'yes':
+            f = open(self.building.store_path, 'w')
+            f.write("Buliding Name: %s \nRooms Number: %s    Flats Number: %s   Floor Number: %s \nTotal Cable: %s      Total Area: %s"
+            %(self.building.building_name, self.building.rooms_number, self.building.flats_number, self.building.floors_number, self.building.building_cable_length, self.building.building_area))
+            f.close()
+            tkinter.messagebox.showinfo('Info', 'The file has been saved in ' + self.building.store_path)
+            self.root.destroy()
+        else:
+            tkinter.messagebox.showinfo('Info', 'The file has not been saved')
+            self.root.destroy()
+
+
+
+
 
 
         
