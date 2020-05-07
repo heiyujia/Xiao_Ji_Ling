@@ -1,0 +1,3 @@
+Buliding Name: spardorf 
+Rooms Number: 2    Flats Number: 1   Floor Number: 1 
+Total NYM-J 3x2.5: 13.7      Total Area: 31.0

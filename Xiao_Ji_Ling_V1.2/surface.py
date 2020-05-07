@@ -10,7 +10,7 @@ class Surface (object):
         self.project_list = []
         self.root = tkinter.Tk()
         self.root.geometry('300x300')
-        self.root.title('Xiao Ji Ling V1.1 by Linjie')
+        self.root.title('Xiao Ji Ling V1.2 by Linjie')
         self.Main_Label = tkinter.Label(master = self.root, text = 'Project Name')
         self.Main_Label.pack()
         self.entry_project_name = tkinter.Entry(master=self.root, bd = 2, width = 10)
@@ -62,7 +62,6 @@ class Surface (object):
 
         
 
-win = Surface()
 
 
        

@@ -7,7 +7,7 @@ from floor import *
 import os
 from flat import *
 from Building import *
-from Save_option import *
+#from Save_option import *
 
 
 class GUI_XiaoJiLing (object):
@@ -18,7 +18,7 @@ class GUI_XiaoJiLing (object):
         self.rooms_list = []
         self.root = tkinter.Toplevel()
         self.sysfont = tkinter.font.Font(self.root, size = 30)
-        self.root.title('Xiao Ji Ling V1.1 by Linjie')
+        self.root.title('Xiao Ji Ling V1.2 by Linjie')
         self.root.geometry('1200x600')
         self.root.bind('<Button-1>', self.update_the_Building_Info)
 
@@ -80,7 +80,7 @@ class GUI_XiaoJiLing (object):
         self.Label_Level.place (x = 170, y = 100)
         
         self.Combobox_sort = tkinter.ttk.Combobox(master = self.sub_frm_top_l, values = ['Living Room', 
-        'Sleeping Room', 'Kitchen', 'Dinning Room', 'Bathroom', 'Storeroom', 'Basement', 'Technik Room'], width = 12 )
+        'Sleeping Room', 'Children Rooms','Kitchen', 'Dinning Room', 'Bathroom', 'Storeroom', 'Flur', 'Basement', 'Technik Room'], width = 12 )
         self.Combobox_sort.place (x = 20, y = 125)
         self.Combobox_Level = tkinter.ttk.Combobox(master = self.sub_frm_top_l, values = ['Level 1', 'Level 2', 'Level 3'], width = 6)
         self.Combobox_Level.place (x = 165, y = 125)
@@ -203,9 +203,7 @@ class GUI_XiaoJiLing (object):
         Sort = self.Combobox_sort.get()
         Level = self.Combobox_Level.get()
         self.rooms_number = self.rooms_number + 1
-
         A_room = room (name = 'Room_%s'%(self.rooms_number), length = Length, width = Width, hight = Height, level = Level, sort = Sort)
-
         self.rooms_list.append(A_room)
         self.rooms_list_for_flat.append(A_room)
         self.Listbox_rooms.insert (tkinter.END, A_room.name)
@@ -223,7 +221,7 @@ class GUI_XiaoJiLing (object):
         self.rooms_list[position].calculate_the_room()
         Infos = ["Room's Name: %s"%(self.rooms_list[position].name), "Room's Length: %s"%(self.rooms_list[position].length), "Room's Width: %s"%(self.rooms_list[position].width), 
         "Room's Height: %s"%(self.rooms_list[position].hight), "Room's Level: %s"%(self.rooms_list[position].level), "Room's Sort: %s"%(self.rooms_list[position].sort), 
-        "Room's Area: %s"%(self.rooms_list[position].s), "The Cable you need: %s"%(self.rooms_list[position].cable_length)]
+        "Room's Area: %s"%(self.rooms_list[position].s), "NYM-J 3x2.5: %s"%(self.rooms_list[position].cable_3x2p5)]
         for item in Infos:
             self.Listbox_Info.insert(tkinter.END, item)
 
@@ -263,15 +261,17 @@ class GUI_XiaoJiLing (object):
             item.calculate_the_room()
             self.flats_list[get_position_flat].add_rooms (Info = item)
 
-        self.flats_list[get_position_flat].calculate_the_flat()
+        #self.flats_list[get_position_flat].calculate_the_flat()
     
     
     def Show_flat_Infos(self, event):
+        
         self.Listbox_flats_Info1.delete(0, tkinter.END)
         self.Listbox_flats_Info2.delete(0,tkinter.END)
         get_position_flat = self.Listbox_flats.curselection()[0]
+        self.flats_list[get_position_flat].calculate_the_flat()
         
-        Infos_flat1 = ['Rooms Number: %s'%(self.flats_list[get_position_flat].rooms_number), 'Flat area: %s'%(self.flats_list[get_position_flat].flat_area), 'Flat Cable: %s'%(self.flats_list[get_position_flat].flat_cable_length)]
+        Infos_flat1 = ['Rooms Number: %s'%(self.flats_list[get_position_flat].rooms_number), 'Flat area: %s'%(self.flats_list[get_position_flat].flat_area), 'NYM-J 3x2.5: %s'%(self.flats_list[get_position_flat].flat_cable_3x2p5)]
         for Item in Infos_flat1:
             self.Listbox_flats_Info1.insert(tkinter.END, Item)
 
@@ -281,7 +281,7 @@ class GUI_XiaoJiLing (object):
             Infos_flat2.append('Name: %s'%(item.name))
             Infos_flat2.append('Sort: %s'%(item.sort))
             Infos_flat2.append('Area: %s'%(item.s))
-            Infos_flat2.append('Cable: %s'%(item.cable_length))
+            Infos_flat2.append('Cable: %s'%(item.cable_3x2p5))
 
         for item in Infos_flat2:
             self.Listbox_flats_Info2.insert(tkinter.END, item)
@@ -320,15 +320,17 @@ class GUI_XiaoJiLing (object):
             #item.calculate_the_flat()
             self.floors_list[get_position_floor].add_flats (Info = item)
 
-        self.floors_list[get_position_floor].calculate_the_floor()
+        #self.floors_list[get_position_floor].calculate_the_floor()
 
 
     def Show_floor_Infos(self, event):
+        
         self.Listbox_floors_Info1.delete(0, tkinter.END)
         self.Listbox_floors_Info2.delete(0,tkinter.END)
         get_position_floor = self.Listbox_floors.curselection()[0]
+        self.floors_list[get_position_floor].calculate_the_floor()
         
-        Infos_floor1 = ['Flats Number: %s'%(self.floors_list[get_position_floor].flats_number), 'Floor Area: %s'%(self.floors_list[get_position_floor].floor_area), 'Floor Cable: %s'%(self.floors_list[get_position_floor].floor_cable_length)]
+        Infos_floor1 = ['Flats Number: %s'%(self.floors_list[get_position_floor].flats_number), 'Floor Area: %s'%(self.floors_list[get_position_floor].floor_area), 'NYM-J 3x2.5: %s'%(self.floors_list[get_position_floor].floor_cable_3x2p5)]
         for Item in Infos_floor1:
             self.Listbox_floors_Info1.insert(tkinter.END, Item)
 
@@ -338,7 +340,7 @@ class GUI_XiaoJiLing (object):
             Infos_floor2.append('Name: %s'%(item.name))
             Infos_floor2.append('Rooms Number: %s'%(item.rooms_number))
             Infos_floor2.append('Flat area: %s'%(item.flat_area))
-            Infos_floor2.append('Flat cable: %s'%(item.flat_cable_length))
+            Infos_floor2.append('Flat cable: %s'%(item.flat_cable_3x2p5))
 
         for item in Infos_floor2:
             self.Listbox_floors_Info2.insert(tkinter.END, item)
@@ -347,24 +349,24 @@ class GUI_XiaoJiLing (object):
         self.building.rooms_number = self.rooms_number
         self.building.flats_number = self.flats_number
         self.building.floors_number = self.floors_number
-        self.building.building_cable_length  = 0
+        self.building.building_cable_3x2p5  = 0
         self.building.building_area = 0
         for item in self.floors_list:
-            self.building.building_cable_length = self.building.building_cable_length + item.floor_cable_length
+            self.building.building_cable_3x2p5 = self.building.building_cable_3x2p5 + item.floor_cable_3x2p5
             self.building.building_area = self.building.building_area + item.floor_area
 
         self.Info1.set('Rooms number: '+str(self.building.rooms_number))
         self.Info2.set('Flats number: '+str(self.building.flats_number))
         self.Info3.set('Floors number: '+str(self.building.floors_number))
-        self.Info4.set('Total Cable: '+str(self.building.building_cable_length))
+        self.Info4.set('Total NYM-J 3x2.5: '+str(self.building.building_cable_3x2p5))
         self.Info5.set('Total area: '+str(self.building.building_area))
 
     def Save_option(self):
         sv = tkinter.messagebox.askquestion(title='Quit the Plannung', message = 'Do you want to save the planning?')
         if sv == 'yes':
             f = open(self.building.store_path, 'w')
-            f.write("Buliding Name: %s \nRooms Number: %s    Flats Number: %s   Floor Number: %s \nTotal Cable: %s      Total Area: %s"
-            %(self.building.building_name, self.building.rooms_number, self.building.flats_number, self.building.floors_number, self.building.building_cable_length, self.building.building_area))
+            f.write("Buliding Name: %s \nRooms Number: %s    Flats Number: %s   Floor Number: %s \nTotal NYM-J 3x2.5: %s      Total Area: %s"
+            %(self.building.building_name, self.building.rooms_number, self.building.flats_number, self.building.floors_number, self.building.building_cable_3x2p5, self.building.building_area))
             f.close()
             tkinter.messagebox.showinfo('Info', 'The file has been saved in ' + self.building.store_path)
             self.root.destroy()

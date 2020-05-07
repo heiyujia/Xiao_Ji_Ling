@@ -1,0 +1,3 @@
+Buliding Name: fsjak 
+Rooms Number: 1    Flats Number: 1   Floor Number: 1 
+Total NYM-J 3x2.5: 24.0      Total Area: 2.0
