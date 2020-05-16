@@ -263,13 +263,26 @@ class GUI_XiaoJiLing (object):
             self.Listbox_Info.insert(tkinter.END, item)
 
     def popup(self, event):
+        self.Listbox_rooms.select_clear(0, tkinter.END)
+        self.Listbox_rooms.select_set(self.Listbox_rooms.nearest(event.y))
         self.Menu_rooms.post(event.x_root, event.y_root)
 
     def copy_room(self):
         self.Infobox.insert(tkinter.END, "The room has been copied")
 
     def delete_room(self):
-        self.Infobox.insert(tkinter.END, "The room has been deleted")
+        position = self.Listbox_rooms.curselection()[0]
+        self.Listbox_rooms.delete(position)
+
+        i = 0
+        for item in self.Listbox_rooms_for_flat:
+            if self.Listbox_rooms_for_flat[item].name == self.rooms_list[position].name:
+                print (item)
+                #self.Listbox_rooms_for_flat.delete(i)
+            i = i+1
+        
+        self.Infobox.insert(tkinter.END, self.rooms_list[position].delete_str)
+        del self.rooms_list[position]
 
     # Part2: Top middle for Flat--------------------------------------------------------------------------
     def creat_a_flat(self):

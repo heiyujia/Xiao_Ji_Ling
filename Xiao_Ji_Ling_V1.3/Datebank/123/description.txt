@@ -1,5 +1,1 @@
-Description: wohnungen
-
-Buliding Name: 123 
-Rooms Number: 2    Flats Number: 1   Floor Number: 1 
-Total NYM-J 3x2.5: 56.800000000000004      Total Area: 36.0
+asdasd

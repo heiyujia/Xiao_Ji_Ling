@@ -26,9 +26,10 @@ class room(object):
             'Level 3': [1, 1]
         }
         self.creat_str = '%s has been created' %(self.name)
+        self.delete_str = '%s has been deleted' %(self.name)
 
     def __del__ (self):
-        self.delete_str = '%s has been deleted' %(self.name)
+        pass
 
     def calculate_the_room (self):
         self.s = self.length * self.width
